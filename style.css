@@ -1,0 +1,66 @@
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f4f4f4;
+        }
+        section {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+        #galleryImage {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #ccc;
+        }
+        .tab-button {
+            padding: 10px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        .tab-button.active {
+            background: #007bff;
+            color: white;
+        }
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .validation-message {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+        }
+        .validation-message.show {
+            display: block;
+        }

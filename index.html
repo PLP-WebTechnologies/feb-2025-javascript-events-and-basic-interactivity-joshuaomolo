@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joshua Omolo</title>
+</head>
+<body>
+    <h1>Interactive Page</h1>
+
+    <section>
+        <h2>Event Handlers</h2>
+        <button id="eventButton">Click Me!</button>
+        <p id="clickMessage">No clicks yet.</p>
+        <p id="hoverStatus">Hover over the button.</p>
+        <p id="pressKey">Press any key.</p>
+        <p id="secretActionStatus">Double-click or long press for a secret!</p>
+    </section>
+
+    <section>
+        <h2>Interactive Elements</h2>
+        <button id="changeColour">Change Text</button>
+        <p id="buttonChangeMessage"></p>
+
+        <div id="imageGallery">
+            <img id="galleryImage" src="https://images.pexels.com/photos/54514/pexels-photo-54514.jpeg" alt="Gallery Image">
+            <div>
+                <button id="prevImage">Prev</button>
+                <button id="nextImage">Next</button>
+            </div>
+        </div>
+
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="sema_one_tam">Sema Wantam</button>
+                <button class="tab-button" data-tab="wewe_kasongo">Wewe Kasongo</button>
+                <button class="tab-button" data-tab="wewe_muongo">Wewe Muongo</button>
+            </div>
+            <div class="tab-content">
+                <div id="sema_one_tam" class="tab-pane active">Wantam.!</div>
+                <div id="wewe_kasongo" class="tab-pane">Wantam.!!</div>
+                <div id="wewe_muongo" class="tab-pane">Wantam.!!!</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Form Validation</h2>
+        <form id="myForm">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <p id="usernameError" class="validation-message">Username cannot be empty!</p>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email">
+                <p id="emailError" class="validation-message">Please enter a valid email address.</p>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+                <p id="passwordError" class="validation-message">Password must meet requirements.</p>
+            </div>
+            <div>
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword">
+                <p id="confirmPasswordError" class="validation-message">Passwords do not match.</p>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <script>
+        // Event Button
+        const eventButton = document.getElementById('eventButton');
+        let clickCount = 0;
+        eventButton.addEventListener('click', () => {
+            document.getElementById('clickMessage').textContent = `Button clicked ${++clickCount} times!`;
+        });
+
+        eventButton.addEventListener('mouseenter', () => {
+            document.getElementById('hoverStatus').textContent = "You are hovering over the button!";
+        });
+        eventButton.addEventListener('mouseleave', () => {
+            document.getElementById('hoverStatus').textContent = "Hover over the button.";
+        });
+
+        document.addEventListener('keydown', (event) => {
+            document.getElementById('pressKey').textContent = `Key pressed: "${event.key}"`;
+        });
+
+        eventButton.addEventListener('dblclick', () => {
+            document.getElementById('secretActionStatus').textContent = "SECRET: SIRI NI NUMBERS. WANTAM....MUST GO !";
+        });
+
+        // Interactive Button
+        const changeColour = document.getElementById('changeColour');
+        let isOriginalState = true;
+        changeColour.addEventListener('click', () => {
+            if (isOriginalState) {
+                changeColour.style.backgroundColor = '#dc3545';
+                changeColour.textContent = 'Changed!';
+            } else {
+                changeColour.style.backgroundColor = '#007bff';
+                changeColour.textContent = 'Change Text';
+            }
+            isOriginalState = !isOriginalState;
+        });
+
+        // Image Gallery
+        const galleryImage = document.getElementById('galleryImage');
+        const images = [
+            'https://images.pexels.com/photos/54514/pexels-photo-54514.jpeg',
+            'https://images.pexels.com/photos/21939345/pexels-photo-21939345.jpeg',
+            'https://images.pexels.com/photos/18551619/pexels-photo-18551619.jpeg',
+            'https://images.pexels.com/photos/17849765/pexels-photo-17849765.jpeg'
+        ];
+        let currentImageIndex = 0;
+        document.getElementById('prevImage').addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            galleryImage.src = images[currentImageIndex];
+        });
+        document.getElementById('nextImage').addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            galleryImage.src = images[currentImageIndex];
+        });
+
+        // Tabs
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanes.forEach(pane => pane.classList.remove('active'));
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Form Validation
+        const form = document.getElementById('myForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+
+            let isValid = true;
+
+            if (!username.value.trim()) {
+                document.getElementById('usernameError').classList.add('show');
+                isValid = false;
+            } else {
+                document.getElementById('usernameError').classList.remove('show');
+            }
+
+            if (!email.value.includes('@')) {
+                document.getElementById('emailError').classList.add('show');
+                isValid = false;
+            } else {
+                document.getElementById('emailError').classList.remove('show');
+            }
+
+            if (password.value.length < 8) {
+                document.getElementById('passwordError').classList.add('show');
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').classList.remove('show');
+            }
+
+            if (password.value !== confirmPassword.value) {
+                document.getElementById('confirmPasswordError').classList.add('show');
+                isValid = false;
+            } else {
+                document.getElementById('confirmPasswordError').classList.remove('show');
+            }
+
+            if (isValid) {
+                alert('Form submitted successfully!');
+                form.reset();
+            } else {
+                alert('Please fix the errors in the form.');
+            }
+        });
+    </script>
+</body>
+</html>
